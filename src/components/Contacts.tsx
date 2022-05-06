@@ -1,8 +1,12 @@
 import axios, { AxiosError } from 'axios'
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
+
+type contactType = {
+  name: string
+}
 
 function Contacts() {
-  const [contacts, setContacts] = useState([])
+  const [contacts, setContacts] = useState<contactType[]>([])
 
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
@@ -12,6 +16,7 @@ function Contacts() {
       }
     )
     if (res && res.data) {
+      console.log("new token",res);
       localStorage.setItem('accessToken', res.data.access_token);
     }
   }
@@ -27,8 +32,8 @@ function Contacts() {
           }
         }
       ).then(async response => {
-        console.log(response.data);
-        setContacts(response.data);
+        console.log(response.data.contacts);
+        setContacts(response.data.contacts);
       }).catch((error: AxiosError) => {
         console.log(error.response);
         updateToken().then(getContacts);
@@ -43,9 +48,13 @@ function Contacts() {
   }, [])
 
   return (
-    <div>Contacts
+    <div>
 
-      {JSON.stringify(contacts)}
+      {
+        contacts.map(contact => {
+          return <div> {contact.name}</div>
+        })
+      }
     </div>
   )
 }
