@@ -9,12 +9,18 @@ import ContactCard from './ContactCard'
 export type contactType = {
   name: string
   phoneNumber: string
+  id: string
+}
+
+type checkedContactsType = {
+
 }
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Contacts() {
   let count = 0;
   const [contacts, setContacts] = useState<contactType[]>([])
+  const [checkedContacts, setCheckedContacts] = useState<checkedContactsType[]>([])
 
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
@@ -58,6 +64,13 @@ function Contacts() {
     }
   }
 
+   const handleCheck = (e:any) => { 
+    let data = checkedContacts
+    setCheckedContacts(data)
+    data.push(e.target.value)
+    console.log(checkedContacts);
+  }
+
   useEffect(() => {
     getContacts()
     window.addEventListener('scroll', handleScroll)
@@ -71,7 +84,7 @@ function Contacts() {
           <Checkbox {...label} /> Select All
           {
             contacts.map(contact => {
-              return <ContactCard name={contact.name} phoneNumber={contact.phoneNumber} />
+              return <ContactCard handleChange={ handleCheck} name={contact.name} phoneNumber={contact.phoneNumber} id={contact.id} />
             })
           }
           </Box>
