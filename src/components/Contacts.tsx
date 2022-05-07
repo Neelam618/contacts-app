@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios'
 import React, { useState, useEffect } from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import ContactCard from './ContactCard'
 
@@ -9,6 +10,7 @@ export type contactType = {
   name: string
   phoneNumber: string
 }
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Contacts() {
   let count = 0;
@@ -65,11 +67,12 @@ function Contacts() {
     <div>
        <CssBaseline />
       <Container maxWidth="sm">
-        <Box sx={{ bgcolor: '#cfe8fc', padding: '30px' }}>
-         {
-        contacts.map(contact => {
-          return <ContactCard name={contact.name} phoneNumber={contact.phoneNumber} />
-        })
+        <Box sx={{ padding: '30px' }}>
+          <Checkbox {...label} /> Select All
+          {
+            contacts.map(contact => {
+              return <ContactCard name={contact.name} phoneNumber={contact.phoneNumber} />
+            })
           }
           </Box>
       </Container>
