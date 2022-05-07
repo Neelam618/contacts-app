@@ -1,11 +1,17 @@
 import axios, { AxiosError } from 'axios'
 import React, { useState, useEffect } from 'react'
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import ContactCard from './ContactCard'
 
-type contactType = {
+export type contactType = {
   name: string
+  phoneNumber: string
 }
 
 function Contacts() {
+  let count = 0;
   const [contacts, setContacts] = useState<contactType[]>([])
 
   const updateToken = async () => {
@@ -24,7 +30,7 @@ function Contacts() {
   const getContacts = () => {
     let token = localStorage.getItem('accessToken');
     if (token) {
-      axios.get('https://api-im.chatdaddy.tech/contacts',
+      axios.get(`https://api-im.chatdaddy.tech/contacts?count=${count}`,
         {
           headers: {
             "Content-type": "Application/json",
@@ -41,20 +47,32 @@ function Contacts() {
     } else {
       updateToken().then(getContacts);
     }
+    count += 10
+  }
+
+  const handleScroll = (e:any) => {
+    if (window.innerHeight + e.target.documentElement.scrollTop + 1 >= e.target.documentElement.scrollHeight) {
+      getContacts()
+    }
   }
 
   useEffect(() => {
     getContacts()
+    window.addEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <div>
-
-      {
+       <CssBaseline />
+      <Container maxWidth="sm">
+        <Box sx={{ bgcolor: '#cfe8fc', padding: '30px' }}>
+         {
         contacts.map(contact => {
-          return <div> {contact.name}</div>
+          return <ContactCard name={contact.name} phoneNumber={contact.phoneNumber} />
         })
-      }
+          }
+          </Box>
+      </Container>
     </div>
   )
 }
