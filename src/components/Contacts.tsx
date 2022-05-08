@@ -12,15 +12,15 @@ export type contactType = {
   id: string
 }
 
-type checkedContactsType = {
+type isCheckType = {}
 
-}
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Contacts() {
   let count = 0;
   const [contacts, setContacts] = useState<contactType[]>([])
-  const [checkedContacts, setCheckedContacts] = useState<checkedContactsType[]>([])
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState<isCheckType[]>([])
 
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
@@ -64,12 +64,29 @@ function Contacts() {
     }
   }
 
-   const handleCheck = (e:any) => { 
-    let data = checkedContacts
-    setCheckedContacts(data)
-    data.push(e.target.value)
-    console.log(checkedContacts);
-  }
+  //  const handleCheck = (e:any) => { 
+  //   let data = checkedContacts
+  //   setCheckedContacts(data)
+  //   data.push(e.target.value)
+  //   console.log(checkedContacts);
+  // }
+
+  const handleSelectAll = (e:any) => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(contacts.map(contact => contact.id));
+    if (isCheckAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = (e:any) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+    console.log(isCheck);
+  };
 
   useEffect(() => {
     getContacts()
@@ -78,13 +95,15 @@ function Contacts() {
 
   return (
     <div>
-       <CssBaseline />
+      <CssBaseline />
       <Container maxWidth="sm">
         <Box sx={{ padding: '30px' }}>
-          <Checkbox {...label} /> Select All
+          <Checkbox {...label} onClick={handleSelectAll}
+        checked={isCheckAll}  name="selectAll"
+        id="selectAll" /> Select All
           {
             contacts.map(contact => {
-              return <ContactCard handleChange={ handleCheck} name={contact.name} phoneNumber={contact.phoneNumber} id={contact.id} />
+              return <ContactCard name={contact.name} handleClick={handleClick} phoneNumber={contact.phoneNumber} id={contact.id} isCheck={isCheck} />
             })
           }
           </Box>
