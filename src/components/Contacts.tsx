@@ -10,6 +10,10 @@ export type contactType = {
   name: string
   phoneNumber: string
   id: string
+  tags: tagsType[]
+}
+type tagsType = {
+  name: string
 }
 
 type isCheckType = {}
@@ -64,13 +68,6 @@ function Contacts() {
     }
   }
 
-  //  const handleCheck = (e:any) => { 
-  //   let data = checkedContacts
-  //   setCheckedContacts(data)
-  //   data.push(e.target.value)
-  //   console.log(checkedContacts);
-  // }
-
   const handleSelectAll = (e:any) => {
     setIsCheckAll(!isCheckAll);
     setIsCheck(contacts.map(contact => contact.id));
@@ -95,19 +92,19 @@ function Contacts() {
 
   return (
     <div>
-      <CssBaseline />
-      <Container maxWidth="sm">
+      {/* <CssBaseline /> */}
+      {/* <Container maxWidth="sm"> */}
         <Box sx={{ padding: '30px' }}>
           <Checkbox {...label} onClick={handleSelectAll}
         checked={isCheckAll}  name="selectAll"
         id="selectAll" /> Select All
           {
             contacts.map(contact => {
-              return <ContactCard name={contact.name} handleClick={handleClick} phoneNumber={contact.phoneNumber} id={contact.id} isCheck={isCheck} />
+              return <ContactCard name={contact.name} handleClick={handleClick} phoneNumber={contact.phoneNumber} id={contact.id} isCheck={isCheck} tags={contact.tags} />
             })
           }
           </Box>
-      </Container>
+      {/* </Container> */}
     </div>
   )
 }
