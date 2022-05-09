@@ -40,9 +40,10 @@ function Contacts(props:any) {
   }
 
   const getContacts = () => {
+    let tags: any = []
     let token = localStorage.getItem('accessToken');
     if (token) {
-      axios.get(`https://api-im.chatdaddy.tech/contacts?count=${count}`,
+      axios.get(`https://api-im.chatdaddy.tech/contacts?count=${count}&tags=${tags}`,
         {
           headers: {
             "Content-type": "Application/json",

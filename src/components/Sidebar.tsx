@@ -6,6 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -16,16 +17,16 @@ function Sidebar(props: any) {
             <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', padding: '30px' }}>
                 <div>Audience</div>
                 <div>
-                    <div>Include Tags:</div>
-                    <List>
+                    <div style={{margin: '1em 0'}}>Include Tags:</div>
+                    <List style={{height: '200px', overflow: 'auto'}}>
                         {
                             props.tagList.map((tag:string, index:any) => {
                                 return (
                                     <ListItem disablePadding>
                                         <ListItemText primary={tag} />
                                         <Checkbox {...label}
-                                            onChange={() => props.handleToggle(index)}
-                                            id={tag} checked={props.checkedState[index]}
+                                            onChange={() => props.handleIncludeToggle(index)}
+                                            id={tag} checked={props.checkedStateForInclude[index]}
                                         />
                                     </ListItem>
                                 )
@@ -34,18 +35,35 @@ function Sidebar(props: any) {
                     </List>
                 </div>
                 <div>
-                    <div>Exclude Tags:</div>
-                    <List>
+                    <div style={{margin: '1em 0'}}>Exclude Tags:</div>
+                    <List style={{height: '200px', overflow: 'auto'}}>
                         {
-                            props.tagList.map((tag:any) => {
+                            props.tagList.map((tag:any, index:any) => {
                                 return (
                                     <ListItem disablePadding>
                                         <ListItemText primary={tag} />
+                                        <Checkbox {...label}
+                                            onChange={() => props.handleExcludeToggle(index)}
+                                            id={tag}
+                                            // checked={props.checkedStateForExclude[index]}
+                                        />
                                     </ListItem>
                                 )
                             })
                         }
                     </List>
+                </div>
+                <div>
+                    <div style={{margin: '1em 0'}}>Message Sent</div> 
+                        <input type="number" placeholder='Min' style={{ width: 80, height: 30, marginRight: '1em' }} />
+                        <input type="number" placeholder='Max' style={{width: 80, height: 30, marginRight: '1em'}} />
+                    {/* <TextField type="number" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} /> */}
+                </div>
+                 <div>
+                    <div style={{margin: '1em 0'}}>Message Received</div> 
+                        <input type="number" placeholder='Min' style={{ width: 80, height: 30, marginRight: '1em' }} />
+                        <input type="number" placeholder='Max' style={{width: 80, height: 30, marginRight: '1em'}} />
+                    {/* <TextField type="number" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} /> */}
                 </div>
             </Box>
         </div>
