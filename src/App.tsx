@@ -37,22 +37,22 @@ function App() {
         
   }
 
-  const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+//   const Item = styled(Paper)(({ theme }) => ({
+//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+//   ...theme.typography.body2,
+//   padding: theme.spacing(1),
+//   textAlign: 'center',
+//   color: theme.palette.text.secondary,
+// }));
   
   return (
     <>
      <Box sx={{ width: '100%' }}>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1 }} justifyContent="flex-start">
+        <Grid item xl xs>
           <Sidebar handleIncludeToggle={handleIncludeToggle} tagList={tagList} checkedStateForInclude={checkedStateForInclude}/>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} sm={6} md={8} xl={9}>
             <Contacts checkedList={checkedList} />
           </Grid>
       </Grid>

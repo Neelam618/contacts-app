@@ -13,12 +13,12 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 function Sidebar(props: any) {
 
     return (
-        <div style={{width: '100%'}}>
-            <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', padding: '30px' }}>
-                <div>Audience</div>
+        <div style={{width: '100%', position: 'fixed', zIndex: 1, top: 0, left: 0, maxWidth: 360}}>
+            <Box sx={{ width: '100%', bgcolor: 'background.paper', padding: '30px' }}>
+                <div style={{marginBottom: '1em'}}>Audience</div>
                 <div>
-                    <div style={{margin: '1em 0'}}>Include Tags:</div>
-                    <List style={{height: '200px', overflow: 'auto'}}>
+                    <div>Include Tags:</div>
+                    <List style={{height: '150px', overflow: 'auto'}}>
                         {
                             props.tagList.map((tag:string, index:any) => {
                                 return (
@@ -34,9 +34,9 @@ function Sidebar(props: any) {
                         }
                     </List>
                 </div>
-                <div>
-                    <div style={{margin: '1em 0'}}>Exclude Tags:</div>
-                    <List style={{height: '200px', overflow: 'auto'}}>
+                <div style={{margin: '2em 0'}}>
+                    <div>Exclude Tags:</div>
+                    <List style={{height: '150px', overflow: 'auto'}}>
                         {
                             props.tagList.map((tag:any, index:any) => {
                                 return (
