@@ -17,13 +17,13 @@ function Sidebar(props: any) {
             <Box sx={{ width: '100%', bgcolor: 'background.paper', padding: '30px' }}>
                 <div style={{marginBottom: '1em'}}>Audience</div>
                 <div>
-                    <div>Include Tags:</div>
+                    <div style={{fontWeight: 'bold'}}>Include Tags:</div>
                     <List style={{height: '150px', overflow: 'auto'}}>
                         {
                             props.tagList.map((tag:string, index:any) => {
                                 return (
                                     <ListItem disablePadding>
-                                        <ListItemText primary={tag} />
+                                        <ListItemText primary={tag} style={{paddingLeft: '10px'}} />
                                         <Checkbox {...label}
                                             onChange={() => props.handleIncludeToggle(index)}
                                             id={tag} checked={props.checkedStateForInclude[index]}
@@ -35,13 +35,13 @@ function Sidebar(props: any) {
                     </List>
                 </div>
                 <div style={{margin: '2em 0'}}>
-                    <div>Exclude Tags:</div>
+                    <div style={{fontWeight: 'bold'}}>Exclude Tags:</div>
                     <List style={{height: '150px', overflow: 'auto'}}>
                         {
                             props.tagList.map((tag:any, index:any) => {
                                 return (
                                     <ListItem disablePadding>
-                                        <ListItemText primary={tag} />
+                                        <ListItemText primary={tag} style={{paddingLeft: '10px'}}/>
                                         <Checkbox {...label}
                                             onChange={() => props.handleExcludeToggle(index)}
                                             id={tag}
@@ -54,14 +54,14 @@ function Sidebar(props: any) {
                     </List>
                 </div>
                 <div>
-                    <div style={{ margin: '1em 0' }}>Message Sent</div>
+                    <div style={{ margin: '1em 0', fontWeight: 'bold' }}>Message Sent</div>
                     <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                         <div><input type="number" placeholder='Min' style={{ height: 30 }} /></div>
                         <div><input type="number" placeholder='Max' style={{ height: 30 }} /></div> 
                     </div>    
                 </div>
                  <div>
-                    <div style={{margin: '1em 0'}}>Message Received</div> 
+                    <div style={{margin: '1em 0', fontWeight: 'bold'}}>Message Received</div> 
                         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                         <div><input type="number" placeholder='Min' style={{ height: 30 }} /></div>
                         <div><input type="number" placeholder='Max' style={{ height: 30 }} /></div> 

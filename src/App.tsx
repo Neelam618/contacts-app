@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import Contacts from './components/Contacts';
 import Sidebar from './components/Sidebar';
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 
 const tagList = ["incididunt", "nulla", "reprehenderit", "ullamco", "velit", "enim", "magna", "quis", "sint", "duis", "occaecat", "dolore", "eu", "proident", "voluptate", "irure", "esse", "tempor", "ex" ]
@@ -26,24 +24,12 @@ function App() {
     //   setCheckedList(newCheckedList)
     // console.log(checkedList);
     
-
-
      const updatedCheckedState = checkedStateForInclude.map((item, index) =>
       index === position ? !item : item
     );
-
     setCheckedStateForInclude(updatedCheckedState);
-    console.log(checkedStateForInclude);
-        
+    console.log(checkedStateForInclude);     
   }
-
-//   const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
   
   return (
     <>
@@ -57,11 +43,6 @@ function App() {
           </Grid>
       </Grid>
     </Box>
-
-    {/* <div style={{display: 'flex', justifyContent: 'space-evenly', margin: '2em'}}>
-      <Sidebar handleIncludeToggle={handleIncludeToggle} tagList={tagList} checkedStateForInclude={checkedStateForInclude}/>
-      <Contacts checkedList={checkedList} />
-      </div> */}
       </>
   );
 }
