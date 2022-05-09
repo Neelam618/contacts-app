@@ -1,9 +1,13 @@
 import React from 'react';
 import Contacts from './components/Contacts';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
-     <Contacts/>
+    <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+      <Sidebar/>
+      <Contacts />
+    </div>
   );
 }
 
