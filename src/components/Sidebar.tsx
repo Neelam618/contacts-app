@@ -1,26 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
 
-const tagList = ["incididunt", "nulla", "reprehenderit", "ullamco", "velit", "enim", "magna", "quis", "sint", "duis", "occaecat", "dolore", "eu", "proident", "voluptate", "irure", "esse", "tempor", "ex" ]
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-function Sidebar() {
+function Sidebar(props: any) {
+
     return (
         <div style={{width: '100%'}}>
-            <div>Audience</div>
-            <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', padding: '30px' }}>
+                <div>Audience</div>
                 <div>
                     <div>Include Tags:</div>
                     <List>
                         {
-                            tagList.map((tag) => {
+                            props.tagList.map((tag:string, index:any) => {
                                 return (
                                     <ListItem disablePadding>
                                         <ListItemText primary={tag} />
+                                        <Checkbox {...label}
+                                            onChange={() => props.handleToggle(index)}
+                                            id={tag} checked={props.checkedState[index]}
+                                        />
                                     </ListItem>
                                 )
                             })
@@ -31,7 +37,7 @@ function Sidebar() {
                     <div>Exclude Tags:</div>
                     <List>
                         {
-                            tagList.map((tag) => {
+                            props.tagList.map((tag:any) => {
                                 return (
                                     <ListItem disablePadding>
                                         <ListItemText primary={tag} />

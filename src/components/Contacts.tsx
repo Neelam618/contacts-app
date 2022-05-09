@@ -20,7 +20,7 @@ type isCheckType = {}
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-function Contacts() {
+function Contacts(props:any) {
   let count = 0;
   const [contacts, setContacts] = useState<contactType[]>([])
   const [isCheckAll, setIsCheckAll] = useState(false);
@@ -91,7 +91,7 @@ function Contacts() {
   }, [])
 
   return (
-    <div>
+    <div style={{width: '100%'}}>
       {/* <CssBaseline /> */}
       {/* <Container maxWidth="sm"> */}
         <Box sx={{ padding: '30px' }}>
