@@ -54,16 +54,18 @@ function Sidebar(props: any) {
                     </List>
                 </div>
                 <div>
-                    <div style={{margin: '1em 0'}}>Message Sent</div> 
-                        <input type="number" placeholder='Min' style={{ width: 80, height: 30, marginRight: '1em' }} />
-                        <input type="number" placeholder='Max' style={{width: 80, height: 30, marginRight: '1em'}} />
-                    {/* <TextField type="number" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} /> */}
+                    <div style={{ margin: '1em 0' }}>Message Sent</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                        <div><input type="number" placeholder='Min' style={{ height: 30 }} /></div>
+                        <div><input type="number" placeholder='Max' style={{ height: 30 }} /></div> 
+                    </div>    
                 </div>
                  <div>
                     <div style={{margin: '1em 0'}}>Message Received</div> 
-                        <input type="number" placeholder='Min' style={{ width: 80, height: 30, marginRight: '1em' }} />
-                        <input type="number" placeholder='Max' style={{width: 80, height: 30, marginRight: '1em'}} />
-                    {/* <TextField type="number" inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} /> */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                        <div><input type="number" placeholder='Min' style={{ height: 30 }} /></div>
+                        <div><input type="number" placeholder='Max' style={{ height: 30 }} /></div> 
+                    </div>  
                 </div>
             </Box>
         </div>
