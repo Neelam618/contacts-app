@@ -35,8 +35,6 @@ function App() {
   const [excludedCheckedList, setExcludedCheckedList] = useState<checkedListType[]>([])
   const [checkedStateForInclude, setCheckedStateForInclude] = useState(new Array(tagList.length).fill(false));
   const [checkedStateForExclude, setCheckedStateForExclude] = useState(new Array(tagList.length).fill(false));
-  // const [minMessagesSent, setMinMessagesSent] = useState(0)
-  // const [maxMessagesSent, setMaxMessagesSent] = useState(1)
   let count = 0;
 
   const [inputValue, setInputValue] = useState<InputValueType>({

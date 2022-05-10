@@ -2,6 +2,7 @@ import React from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -13,6 +14,7 @@ function ContactCard(props: any) {
           id={props.id}
           onClick={props.handleSelectAll}
         checked={props.isCheck.includes(props.id)} />
+       <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
       <div style={{display:'flex', justifyContent: 'space-between', width: '100%'}}>
         <div>
           <div style={{fontWeight: 700}}>{props.name}</div>
