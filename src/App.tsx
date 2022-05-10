@@ -56,6 +56,8 @@ function App() {
     window.addEventListener('scroll', handleScroll)
   }, [checkedStateForInclude, checkedStateForExclude, inputValue, debouncedSearch])
 
+ 
+
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
       {
@@ -146,7 +148,7 @@ function App() {
             />
           </Grid>
           <Grid item xs={6} sm={6} md={8} xl={9}>
-            <Contacts contacts={contacts} setSearchTerm={setSearchTerm} />
+            <Contacts contacts={contacts} setSearchTerm={setSearchTerm} loading={loading} />
           </Grid>
       </Grid>
     </Box>

@@ -36,10 +36,17 @@ function Contacts(props:any) {
         {/* <Container maxWidth="sm"> */}
         <Box sx={{ padding: '30px' }}>
           <input type="text" style={{display: 'block', marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)} placeholder="Search"/>
-          <Checkbox {...label} onClick={handleSelectAll}
-            checked={isCheckAll}  name="selectAll"
-            id="selectAll"
-          /> Select All
+          {
+            props.contacts.length !== 0 ? (
+              <>
+                <Checkbox {...label} onClick={handleSelectAll}
+                checked={isCheckAll}  name="selectAll"
+                id="selectAll"
+                /> <span>Select All</span>
+              </>
+            ) : null
+          }
+          
           {
             props.contacts.map((contact:any) => {
               return <ContactCard name={contact.name} handleClick={handleClick} phoneNumber={contact.phoneNumber} id={contact.id} isCheck={isCheck} tags={contact.tags} />
