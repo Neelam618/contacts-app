@@ -9,17 +9,6 @@ type isCheckType = {}
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-// interface Contact {
-//   name: string
-//   phoneNumber: string
-//   id: string
-//   tags: tagsType[]
-// }
-
-// type tagsType = {
-//   name: string
-// }
-
 function Contacts(props:any) {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState<isCheckType[]>([])

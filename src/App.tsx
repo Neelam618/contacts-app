@@ -24,15 +24,18 @@ type tagsType = {
 
 function App() {
   const [contacts, setContacts] = useState<contactsType[]>([])
-  const [checkedList, setCheckedList] = useState<checkedListType[]>([])
+  const [includedCheckedList, setIncludedCheckedList] = useState<checkedListType[]>([])
+  const [excludedCheckedList, setExcludedCheckedList] = useState<checkedListType[]>([])
   const [checkedStateForInclude, setCheckedStateForInclude] = useState(new Array(tagList.length).fill(false));
+  const [checkedStateForExclude, setCheckedStateForExclude] = useState(new Array(tagList.length).fill(false));
+
   let count = 0;
   
    useEffect(() => {
-    console.log(checkedList);
-    getContacts()
-    window.addEventListener('scroll', handleScroll)
-   }, [checkedList])
+      console.log(includedCheckedList);
+      getContacts()
+      window.addEventListener('scroll', handleScroll)
+   }, [checkedStateForInclude, checkedStateForExclude])
   
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
@@ -50,7 +53,7 @@ function App() {
   const getContacts = () => {
     let token = localStorage.getItem('accessToken');
     if (token) {      
-      axios.get(`https://api-im.chatdaddy.tech/contacts?count=${count}&tags=${checkedList}`,
+      axios.get(`https://api-im.chatdaddy.tech/contacts?count=${count}&tags=${includedCheckedList}&notTags=${excludedCheckedList}`,
         {
           headers: {
             "Content-type": "Application/json",
@@ -76,30 +79,44 @@ function App() {
     }
   }
 
-
   const handleIncludeToggle = (position: any) => {
-       setCheckedStateForInclude((prevCheckedState:any) => {
-      const updatedCheckedState = prevCheckedState.map((item:boolean, index: any) => index === position ? !item : item);
-      console.log(updatedCheckedState);
+    setCheckedStateForInclude((prevCheckedState:any) => {
+    const updatedCheckedState = prevCheckedState.map((item:boolean, index: any) => index === position ? !item : item);
+    console.log(updatedCheckedState);
 
-      if (updatedCheckedState[position] === true) {
-        const newCheckedList = checkedList
-        newCheckedList.push(tagList[position])
-        console.log(checkedList)
-      }
-      return updatedCheckedState
+    if (updatedCheckedState[position] === true) {
+      const newCheckedList = includedCheckedList
+      newCheckedList.push(tagList[position])
+      console.log(includedCheckedList)
+    }
+    return updatedCheckedState
     });
   }
+
+    const handleExcludeToggle = (position: any) => {
+    setCheckedStateForExclude((prevCheckedState:any) => {
+    const updatedCheckedState = prevCheckedState.map((item:boolean, index: any) => index === position ? !item : item);
+    console.log(updatedCheckedState);
+
+    if (updatedCheckedState[position] === true) {
+      const newCheckedList = excludedCheckedList
+      newCheckedList.push(tagList[position])
+      console.log("excludedCheckedList", excludedCheckedList)
+    }
+    return updatedCheckedState
+    });
+  }
+
   
   return (
     <>
      <Box sx={{ width: '100%' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1 }} justifyContent="flex-start">
         <Grid item xl xs>
-          <Sidebar handleIncludeToggle={handleIncludeToggle} tagList={tagList} checkedStateForInclude={checkedStateForInclude}/>
+            <Sidebar handleIncludeToggle={handleIncludeToggle} handleExcludeToggle={handleExcludeToggle} tagList={tagList} checkedStateForInclude={checkedStateForInclude} checkedStateForExclude={checkedStateForExclude}/>
           </Grid>
           <Grid item xs={6} sm={6} md={8} xl={9}>
-            <Contacts checkedList={checkedList} contacts={contacts} />
+            <Contacts contacts={contacts} />
           </Grid>
       </Grid>
     </Box>
