@@ -4,6 +4,7 @@ import Contacts from './components/Contacts';
 import Sidebar from './components/Sidebar';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import useDebounce from './hooks/useDebounce'
 
 const tagList = ["incididunt", "nulla", "reprehenderit", "ullamco", "velit", "enim", "magna", "quis", "sint", "duis", "occaecat", "dolore", "eu", "proident", "voluptate", "irure", "esse", "tempor", "ex" ]
 
@@ -35,6 +36,10 @@ function App() {
   const [excludedCheckedList, setExcludedCheckedList] = useState<checkedListType[]>([])
   const [checkedStateForInclude, setCheckedStateForInclude] = useState(new Array(tagList.length).fill(false));
   const [checkedStateForExclude, setCheckedStateForExclude] = useState(new Array(tagList.length).fill(false));
+  const [searchTerm, setSearchTerm] = useState<string>("")
+  const [loading, setLoading] = useState(false)
+  const debouncedSearch = useDebounce(searchTerm, 500)
+
   let count = 0;
 
   const [inputValue, setInputValue] = useState<InputValueType>({
@@ -44,18 +49,12 @@ function App() {
     maxMsgsRec: 1
   });
   
-  const handleInputChange = (e:any) => {
-    setInputValue((prevState) => (
-        { ...prevState, [e.target.name]: e.target.value }
-    ))
-    console.log(inputValue); 
-  }
-  
   useEffect(() => {
     console.log(includedCheckedList);
+    setLoading(true)
     getContacts()
     window.addEventListener('scroll', handleScroll)
-  }, [checkedStateForInclude, checkedStateForExclude, inputValue])
+  }, [checkedStateForInclude, checkedStateForExclude, inputValue, debouncedSearch])
 
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
@@ -74,7 +73,7 @@ function App() {
     let token = localStorage.getItem('accessToken');
     if (token) {      
       axios.get(
-        `https://api-im.chatdaddy.tech/contacts?count=${count}&tags=${includedCheckedList}&notTags=${excludedCheckedList}&maxMessagesSent=${inputValue.maxMsgsSent}&minMessagesSent=${inputValue.minMsgsSent}&minMessagesRecv=${inputValue.minMsgsRec}&maxMessagesRecv=${inputValue.maxMsgsRec}`,
+        `https://api-im.chatdaddy.tech/contacts?q=${debouncedSearch}&count=${count}&tags=${includedCheckedList}&notTags=${excludedCheckedList}&maxMessagesSent=${inputValue.maxMsgsSent}&minMessagesSent=${inputValue.minMsgsSent}&minMessagesRecv=${inputValue.minMsgsRec}&maxMessagesRecv=${inputValue.maxMsgsRec}`,
         {
           headers: {
             "Content-type": "Application/json",
@@ -84,6 +83,7 @@ function App() {
       ).then(async response => {
         console.log(response.data.contacts);
         setContacts(response.data.contacts);
+        setLoading(false)
       }).catch((error: AxiosError) => {
         console.log(error.response);
         updateToken().then(getContacts);
@@ -114,7 +114,7 @@ function App() {
     });
   }
 
-    const handleExcludeToggle = (position: any) => {
+  const handleExcludeToggle = (position: any) => {
     setCheckedStateForExclude((prevCheckedState:any) => {
     const updatedCheckedState = prevCheckedState.map((item:boolean, index: any) => index === position ? !item : item);
     console.log(updatedCheckedState);
@@ -128,6 +128,12 @@ function App() {
     });
   }
 
+  const handleInputChange = (e:any) => {
+    setInputValue((prevState) => (
+        { ...prevState, [e.target.name]: e.target.value }
+    ))
+    console.log(inputValue); 
+  }
   
   return (
     <>
@@ -140,7 +146,7 @@ function App() {
             />
           </Grid>
           <Grid item xs={6} sm={6} md={8} xl={9}>
-            <Contacts contacts={contacts} />
+            <Contacts contacts={contacts} setSearchTerm={setSearchTerm} />
           </Grid>
       </Grid>
     </Box>
