@@ -55,15 +55,15 @@ function Sidebar(props: any) {
                 <div>
                     <div style={{ margin: '1em 0', fontWeight: 'bold' }}>Message Sent</div>
                     <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <div><input type="number" placeholder='Min' style={{ height: 30 }} /></div>
-                        <div><input type="number" placeholder='Max' style={{ height: 30 }} /></div> 
+                        <div><input type="number" name="minMsgsSent" value={props.inputValue.minMsgsSent} placeholder='Min' onChange={props.handleInputChange} style={{ height: 30 }} /></div>
+                        <div><input type="number" name="maxMsgsSent" value={props.inputValue.maxMsgsSent} placeholder='Max' onChange={props.handleInputChange} style={{ height: 30 }} /></div> 
                     </div>    
                 </div>
                  <div>
                     <div style={{margin: '1em 0', fontWeight: 'bold'}}>Message Received</div> 
                         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <div><input type="number" placeholder='Min' style={{ height: 30 }} /></div>
-                        <div><input type="number" placeholder='Max' style={{ height: 30 }} /></div> 
+                        <div><input type="number" name="minMsgsRec" value={props.inputValue.minMsgsRec} onChange={props.handleInputChange} placeholder='Min' style={{ height: 30 }} /></div>
+                        <div><input type="number" name="maxMsgsRec" value={props.inputValue.maxMsgsRec} onChange={props.handleInputChange} placeholder='Max' style={{ height: 30 }} /></div> 
                     </div>  
                 </div>
             </Box>

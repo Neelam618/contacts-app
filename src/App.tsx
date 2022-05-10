@@ -22,21 +22,43 @@ type tagsType = {
   name: string
 }
 
+interface InputValueType  {
+  minMsgsSent: number,
+  maxMsgsSent: number,
+  minMsgsRec: number,
+  maxMsgsRec: number
+}
+
 function App() {
   const [contacts, setContacts] = useState<contactsType[]>([])
   const [includedCheckedList, setIncludedCheckedList] = useState<checkedListType[]>([])
   const [excludedCheckedList, setExcludedCheckedList] = useState<checkedListType[]>([])
   const [checkedStateForInclude, setCheckedStateForInclude] = useState(new Array(tagList.length).fill(false));
   const [checkedStateForExclude, setCheckedStateForExclude] = useState(new Array(tagList.length).fill(false));
-
+  // const [minMessagesSent, setMinMessagesSent] = useState(0)
+  // const [maxMessagesSent, setMaxMessagesSent] = useState(1)
   let count = 0;
+
+  const [inputValue, setInputValue] = useState<InputValueType>({
+    minMsgsSent: 0,
+    maxMsgsSent: 1,
+    minMsgsRec: 0,
+    maxMsgsRec: 1
+  });
   
-   useEffect(() => {
-      console.log(includedCheckedList);
-      getContacts()
-      window.addEventListener('scroll', handleScroll)
-   }, [checkedStateForInclude, checkedStateForExclude])
+  const handleInputChange = (e:any) => {
+    setInputValue((prevState) => (
+        { ...prevState, [e.target.name]: e.target.value }
+    ))
+    console.log(inputValue); 
+  }
   
+  useEffect(() => {
+    console.log(includedCheckedList);
+    getContacts()
+    window.addEventListener('scroll', handleScroll)
+  }, [checkedStateForInclude, checkedStateForExclude, inputValue])
+
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
       {
@@ -53,7 +75,8 @@ function App() {
   const getContacts = () => {
     let token = localStorage.getItem('accessToken');
     if (token) {      
-      axios.get(`https://api-im.chatdaddy.tech/contacts?count=${count}&tags=${includedCheckedList}&notTags=${excludedCheckedList}`,
+      axios.get(
+        `https://api-im.chatdaddy.tech/contacts?count=${count}&tags=${includedCheckedList}&notTags=${excludedCheckedList}&maxMessagesSent=${inputValue.maxMsgsSent}&minMessagesSent=${inputValue.minMsgsSent}&minMessagesRecv=${inputValue.minMsgsRec}&maxMessagesRecv=${inputValue.maxMsgsRec}`,
         {
           headers: {
             "Content-type": "Application/json",
@@ -113,7 +136,10 @@ function App() {
      <Box sx={{ width: '100%' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1 }} justifyContent="flex-start">
         <Grid item xl xs>
-            <Sidebar handleIncludeToggle={handleIncludeToggle} handleExcludeToggle={handleExcludeToggle} tagList={tagList} checkedStateForInclude={checkedStateForInclude} checkedStateForExclude={checkedStateForExclude}/>
+            <Sidebar handleIncludeToggle={handleIncludeToggle} handleExcludeToggle={handleExcludeToggle}
+              tagList={tagList} checkedStateForInclude={checkedStateForInclude} checkedStateForExclude={checkedStateForExclude}
+              handleInputChange={handleInputChange} inputValue={inputValue}
+            />
           </Grid>
           <Grid item xs={6} sm={6} md={8} xl={9}>
             <Contacts contacts={contacts} />
