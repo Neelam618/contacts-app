@@ -4,6 +4,10 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import ContactCard from './ContactCard'
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
 type isCheckType = {}
 
@@ -35,7 +39,18 @@ function Contacts(props:any) {
       {/* <CssBaseline /> */}
         {/* <Container maxWidth="sm"> */}
         <Box sx={{ padding: '30px' }}>
-          <input type="text" style={{display: 'block', marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)} placeholder="Search"/>
+          {/* <input type="text" style={{display: 'block', marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)} placeholder="Search"/> */}
+          <div style={{display: 'flex'}}>
+            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+              <SearchIcon />
+            </IconButton> 
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Search"
+              inputProps={{ 'aria-label': 'search google maps' }}
+              style={{marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)}
+              />
+            </div>
           {
             props.contacts.length !== 0 ? (
               <>
