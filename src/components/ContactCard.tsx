@@ -14,7 +14,7 @@ function ContactCard(props: any) {
           id={props.id}
           onClick={props.handleSelectAll}
         checked={props.isCheck.includes(props.id)} />
-       <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+       <Avatar alt={props.name} src="/static/images/avatar/1.jpg" style={{marginRight: '1em'}} />
       <div style={{display:'flex', justifyContent: 'space-between', width: '100%'}}>
         <div>
           <div style={{fontWeight: 700}}>{props.name}</div>
