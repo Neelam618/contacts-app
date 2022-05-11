@@ -10,7 +10,7 @@ type contactsType = {
   name: string
   phoneNumber: string
   id: string
-  tags: string[]
+  tags: {name: string}[]
 }
 
 interface InputValueType  {

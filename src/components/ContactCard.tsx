@@ -4,27 +4,41 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const label = { inputProps: { 'aria-label': 'Select Contact' } };
 
-function ContactCard(props: any) {  
+type ContactCardProps = {
+  contact: {
+    name: string;
+    id: string;
+    tags: {
+      name: string;
+    }[];
+    phoneNumber: string;
+  },
+  handleClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectAll: () => void;
+  isCheck: string[];
+}
+
+function ContactCard(props: ContactCardProps) {  
 
   return (
     <div style={{ margin: '20px 0', display: 'flex' }}>
-      <Checkbox {...label} value={props.id} onChange={props.handleClick} name={props.name}
-          id={props.id}
+      <Checkbox {...label} value={props.contact.id} onChange={props.handleClick} name={props.contact.name}
+          id={props.contact.id}
           onClick={props.handleSelectAll}
-        checked={props.isCheck.includes(props.id)} />
-       <Avatar alt={props.name} src="/static/images/avatar/1.jpg" style={{marginRight: '1em'}} />
+        checked={props.isCheck.includes(props.contact.id)} />
+       <Avatar alt={props.contact.name} src="/static/images/avatar/1.jpg" style={{marginRight: '1em'}} />
       <div style={{display:'flex', justifyContent: 'space-between', width: '100%'}}>
         <div>
-          <div style={{fontWeight: 700}}>{props.name}</div>
-          <div>{props.phoneNumber}</div>
+          <div style={{fontWeight: 700}}>{props.contact.name}</div>
+          <div>{props.contact.phoneNumber}</div>
         </div>
         <div>
           {
-            (props.tags.length !== 0) ?
+            (props.contact.tags.length !== 0) ?
                 <Stack direction="row" spacing={1}>
-                  {props.tags.map((tag: any) => {
+                  {props.contact.tags.map((tag: {name: string}) => {
                     return (
                     <Chip label={tag.name} size="small" color="primary" />
                     )

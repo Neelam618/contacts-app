@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import InputBase from '@mui/material/InputBase';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const label = { inputProps: { 'aria-label': 'Tag Chackbox' } };
 
 type SidebarProps = {
     handleIncludeToggle: (index: number) => void;

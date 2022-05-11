@@ -8,13 +8,13 @@ import SearchIcon from '@mui/icons-material/Search';
 
 type ContactsProps = {
   contacts: {
-    tags: string[]
-    name: string
-  phoneNumber: string
-  id: string
-  }[],
-  setSearchTerm: (searchTerm: string) => void,
-  loading: boolean
+    tags: { name: string }[];
+    name: string;
+    phoneNumber: string;
+    id: string;
+  }[];
+  setSearchTerm: (searchTerm: string) => void;
+  loading: boolean;
 };
 
 const label = { inputProps: { 'aria-label': 'Select All' } };
@@ -31,7 +31,7 @@ function Contacts(props: ContactsProps) {
     }
   };
 
-  const handleClick = (e:React.MouseEvent<HTMLInputElement>) => {
+  const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = e.target as HTMLInputElement;
     setIsCheck([...isCheck, id]);
     if (!checked) {
@@ -67,8 +67,8 @@ function Contacts(props: ContactsProps) {
           }
           
           {
-            props.contacts.map((contact:any) => {
-              return <ContactCard name={contact.name} handleClick={handleClick} phoneNumber={contact.phoneNumber} id={contact.id} isCheck={isCheck} tags={contact.tags} />
+            props.contacts.map((contact:{name: string, id: string, tags: {name: string}[], phoneNumber: string}) => {
+              return <ContactCard contact={contact} handleClick={handleClick} isCheck={isCheck} handleSelectAll={handleSelectAll}/>
             })
           }
           </Box>
