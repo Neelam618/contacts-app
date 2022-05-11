@@ -6,7 +6,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -55,15 +58,46 @@ function Sidebar(props: any) {
                 <div>
                     <div style={{ margin: '1em 0', fontWeight: 'bold' }}>Message Sent</div>
                     <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <div><input type="number" name="minMsgsSent" value={props.inputValue.minMsgsSent} placeholder='Min' onChange={props.handleInputChange} style={{ height: 30 }} /></div>
-                        <div><input type="number" name="maxMsgsSent" value={props.inputValue.maxMsgsSent} placeholder='Max' onChange={props.handleInputChange} style={{ height: 30 }} /></div> 
+                        <InputBase
+                            type='number'
+                            name="minMsgsSent"
+                            value={props.inputValue.minMsgsSent}
+                            placeholder='Min'
+                            onChange={props.handleInputChange}
+                            style={{ background: '#e9eff1', padding: '0 10px', borderRadius: 10, width: 170 }}
+                            
+                        />
+                        <InputBase
+                            type='number'
+                            name="maxMsgsSent"
+                            value={props.inputValue.maxMsgsSent}
+                            placeholder='Max'
+                            onChange={props.handleInputChange}
+                            style={{ background: '#e9eff1', padding: '0 10px', borderRadius: 10, width: 170 }}
+                        />    
                     </div>    
                 </div>
                  <div>
                     <div style={{margin: '1em 0', fontWeight: 'bold'}}>Message Received</div> 
-                        <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <div><input type="number" name="minMsgsRec" value={props.inputValue.minMsgsRec} onChange={props.handleInputChange} placeholder='Min' style={{ height: 30 }} /></div>
-                        <div><input type="number" name="maxMsgsRec" value={props.inputValue.maxMsgsRec} onChange={props.handleInputChange} placeholder='Max' style={{ height: 30 }} /></div> 
+                        <div style={{ display: 'flex', justifyContent: 'space-between'}}>                    
+                        <InputBase
+                            type='number'
+                            name="minMsgsRec"
+                            value={props.inputValue.minMsgsRec}
+                            placeholder='Min'
+                            onChange={props.handleInputChange}
+                            style={{ background: '#e9eff1', padding: '0 10px', borderRadius: 10, width: 170 }}
+                            
+                        />
+                        <InputBase
+                            type='number'
+                            name="maxMsgsRec"
+                            value={props.inputValue.maxMsgsRec}
+                            placeholder='Max'
+                            onChange={props.handleInputChange}
+                            style={{ background: '#e9eff1', padding: '0 10px', borderRadius: 10, width: 170 }}
+                        />    
+
                     </div>  
                 </div>
             </Box>
