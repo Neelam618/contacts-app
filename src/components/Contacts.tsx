@@ -1,23 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import CssBaseline from '@mui/material/CssBaseline';
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
-import Container from '@mui/material/Container';
 import ContactCard from './ContactCard'
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 
-type isCheckType = {}
+type ContactsProps = {
+  contacts: {
+    tags: string[]
+    name: string
+  phoneNumber: string
+  id: string
+  }[],
+  setSearchTerm: (searchTerm: string) => void,
+  loading: boolean
+};
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const label = { inputProps: { 'aria-label': 'Select All' } };
 
-function Contacts(props:any) {
+function Contacts(props: ContactsProps) {
   const [isCheckAll, setIsCheckAll] = useState(false);
-  const [isCheck, setIsCheck] = useState<isCheckType[]>([])
+  const [isCheck, setIsCheck] = useState<Array<string>>([])
 
-  const handleSelectAll = (e:any) => {
+  const handleSelectAll = () => {
     setIsCheckAll(!isCheckAll);
     setIsCheck(props.contacts.map((contact:any) => contact.id));
     if (isCheckAll) {
@@ -25,8 +31,8 @@ function Contacts(props:any) {
     }
   };
 
-  const handleClick = (e:any) => {
-    const { id, checked } = e.target;
+  const handleClick = (e:React.MouseEvent<HTMLInputElement>) => {
+    const { id, checked } = e.target as HTMLInputElement;
     setIsCheck([...isCheck, id]);
     if (!checked) {
       setIsCheck(isCheck.filter(item => item !== id));
@@ -36,10 +42,7 @@ function Contacts(props:any) {
 
     return (
     <div style={{width: '100%'}}>
-      {/* <CssBaseline /> */}
-        {/* <Container maxWidth="sm"> */}
         <Box sx={{ paddingRight: '40px' }}>
-          {/* <input type="text" style={{display: 'block', marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)} placeholder="Search"/> */}
           <h2>All Contacts(173)</h2>
           <div style={{ display: 'flex', background: '#e9eff1', padding: '0 10px', borderRadius: 20 }}>
             <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
@@ -69,7 +72,6 @@ function Contacts(props:any) {
             })
           }
           </Box>
-      {/* </Container> */}
     </div>
   )
 }

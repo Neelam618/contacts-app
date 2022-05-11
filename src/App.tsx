@@ -6,17 +6,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import useDebounce from './hooks/useDebounce'
 
-export type contactsType = contactType[]
-
-export type contactType = {
+type contactsType = {
   name: string
   phoneNumber: string
   id: string
-  tags: tagsType[]
-}
-
-type tagsType = {
-  name: string
+  tags: string[]
 }
 
 interface InputValueType  {
@@ -28,7 +22,7 @@ interface InputValueType  {
 
 function App() {
   const [contacts, setContacts] = useState<contactsType[]>([])
-  const [tagList, setTagList] = useState([])
+  const [tagList, setTagList] = useState<Array<string>>([])
   const [tagsToInclude, settagsToInclude] = useState<Array<string>>([])
   const [tagsToExclude, settagsToExclude] = useState<Array<string>>([])
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -36,7 +30,6 @@ function App() {
   const debouncedSearch = useDebounce(searchTerm, 500)
 
   let count = 10;
-
   const [inputValue, setInputValue] = useState<InputValueType>({
     minMsgsSent: 0,
     maxMsgsSent: 1,
@@ -102,9 +95,8 @@ const getTags = async () => {
         }
       }
   )
-  // console.log(res.data);
   
-  setTagList(res.data.tags.map((tag:any) => {
+  setTagList(res.data.tags.map((tag:{name: string}) => {
       return tag.name
     }));
   }
@@ -141,7 +133,7 @@ const getTags = async () => {
     });
   }
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setInputValue((prevState) => (
         { ...prevState, [e.target.name]: e.target.value }
     ))

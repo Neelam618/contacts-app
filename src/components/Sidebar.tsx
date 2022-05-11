@@ -8,7 +8,21 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-function Sidebar(props: any) {
+type SidebarProps = {
+    handleIncludeToggle: (index: number) => void;
+    handleExcludeToggle: (index: number) => void;
+    tagList: string[]
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    inputValue: {
+        minMsgsSent: number,
+        maxMsgsSent: number,
+        minMsgsRec: number,
+        maxMsgsRec: number
+    }
+
+}
+
+function Sidebar(props: SidebarProps) {
 
     return (
         <div style={{width: '100%', position: 'fixed', zIndex: 1, top: 0, left: 0, maxWidth: 360, padding: '0 30px'}}>
@@ -19,7 +33,7 @@ function Sidebar(props: any) {
                     <div style={{fontWeight: 'bold'}}>Include Tags:</div>
                     <List style={{height: '150px', overflow: 'auto', margin: '8px 0'}}>
                         {
-                            props.tagList.map((tag:string, index:any) => {
+                            props.tagList.map((tag:string, index:number) => {
                                 return (
                                     <ListItem disablePadding>
                                         <ListItemText primary={tag} style={{paddingLeft: '10px'}} />
@@ -37,7 +51,7 @@ function Sidebar(props: any) {
                     <div style={{fontWeight: 'bold'}}>Exclude Tags:</div>
                     <List style={{height: '150px', overflow: 'auto', margin: '8px 0'}}>
                         {
-                            props.tagList.map((tag:any, index:any) => {
+                            props.tagList.map((tag:string, index:number) => {
                                 return (
                                     <ListItem disablePadding>
                                         <ListItemText primary={tag} style={{paddingLeft: '10px'}}/>
