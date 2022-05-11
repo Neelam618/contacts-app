@@ -51,7 +51,7 @@ function Contacts(props: ContactsProps) {
             <InputBase
               sx={{ ml: 1, flex: 1 }}
               placeholder="Search contacts"
-              inputProps={{ 'aria-label': 'search google maps' }}
+              inputProps={{ 'aria-label': 'search contacts' }}
               style={{marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)}
               />
           </div>

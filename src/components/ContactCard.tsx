@@ -31,7 +31,7 @@ function ContactCard(props: ContactCardProps) {
       <div style={{display:'flex', justifyContent: 'space-between', width: '100%'}}>
         <div>
           <div style={{fontWeight: 700}}>{props.contact.name}</div>
-          <div>{props.contact.phoneNumber}</div>
+          <div style={{color: 'gray'}}>{props.contact.phoneNumber}</div>
         </div>
         <div>
           {
