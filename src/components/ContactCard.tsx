@@ -21,13 +21,12 @@ type ContactCardProps = {
 }
 
 function ContactCard(props: ContactCardProps) {  
-
   return (
     <div style={{ margin: '20px 0', display: 'flex' }}>
       <Checkbox {...label} value={props.contact.id} onChange={props.handleClick} name={props.contact.name}
           id={props.contact.id}
           onClick={props.handleSelectAll}
-        checked={props.isCheck.includes(props.contact.id)} />
+          checked={props.isCheck.includes(props.contact.id)} />
        <Avatar alt={props.contact.name} src="/static/images/avatar/1.jpg" style={{marginRight: '1em'}} />
       <div style={{display:'flex', justifyContent: 'space-between', width: '100%'}}>
         <div>
@@ -44,7 +43,7 @@ function ContactCard(props: ContactCardProps) {
                     )
                   }
                   )}
-                  </Stack>: null
+                </Stack>: null
           }
           </div>
         </div>

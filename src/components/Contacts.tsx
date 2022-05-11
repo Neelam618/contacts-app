@@ -40,7 +40,7 @@ function Contacts(props: ContactsProps) {
     console.log(isCheck);
   };
 
-    return (
+  return (
     <div style={{width: '100%'}}>
         <Box sx={{ paddingRight: '40px' }}>
           <h2>All Contacts(173)</h2>
@@ -54,7 +54,7 @@ function Contacts(props: ContactsProps) {
               inputProps={{ 'aria-label': 'search google maps' }}
               style={{marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)}
               />
-            </div>
+          </div>
           {
             props.contacts.length !== 0 ? (
               <>
