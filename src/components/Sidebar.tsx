@@ -1,15 +1,10 @@
-import React, {useState} from 'react'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -18,8 +13,9 @@ function Sidebar(props: any) {
     return (
         <div style={{width: '100%', position: 'fixed', zIndex: 1, top: 0, left: 0, maxWidth: 360, padding: '0 30px'}}>
             <Box sx={{ width: '100%', bgcolor: 'background.paper', padding: '30px' }}>
-                <h1 style={{fontSize: '26px', marginTop: 0}}>Audience</h1>
-                <div>
+                <MenuRoundedIcon style={{marginRight: 10, verticalAlign: 'sub'}}/>
+                <h1 style={{fontSize: '26px', marginTop: 0, display: 'inline'}}>Audience</h1>
+                <div style={{marginTop: 10}}>
                     <div style={{fontWeight: 'bold'}}>Include Tags:</div>
                     <List style={{height: '150px', overflow: 'auto', margin: '8px 0'}}>
                         {
