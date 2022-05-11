@@ -28,6 +28,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [loading, setLoading] = useState(false)
   const debouncedSearch = useDebounce(searchTerm, 500)
+  const baseURL = "https://api-teams.chatdaddy.tech"
 
   let count = 10;
   const [inputValue, setInputValue] = useState<InputValueType>({
@@ -48,7 +49,7 @@ function App() {
   }, [tagsToInclude, tagsToExclude, inputValue, debouncedSearch])
 
   const updateToken = async () => {
-    let res = await axios.post('https://api-teams.chatdaddy.tech/token',
+    let res = await axios.post(`${baseURL}/token`,
       {
         "refreshToken": "059c420e-7424-431f-b23b-af0ecabfe7b8",
         "teamId": "a001994b-918b-4939-8518-3377732e4e88"
@@ -64,7 +65,7 @@ function App() {
     let token = localStorage.getItem('accessToken');
     if (token) {      
       axios.get(
-        `https://api-im.chatdaddy.tech/contacts?q=${debouncedSearch}&count=${count}&tags=${tagsToInclude}&notTags=${tagsToExclude}&maxMessagesSent=${inputValue.maxMsgsSent}&minMessagesSent=${inputValue.minMsgsSent}&minMessagesRecv=${inputValue.minMsgsRec}&maxMessagesRecv=${inputValue.maxMsgsRec}`,
+        `${baseURL}/contacts?q=${debouncedSearch}&count=${count}&tags=${tagsToInclude}&notTags=${tagsToExclude}&maxMessagesSent=${inputValue.maxMsgsSent}&minMessagesSent=${inputValue.minMsgsSent}&minMessagesRecv=${inputValue.minMsgsRec}&maxMessagesRecv=${inputValue.maxMsgsRec}`,
         {
           headers: {
             "Content-type": "Application/json",
@@ -87,7 +88,7 @@ function App() {
 
 const getTags = async () => {
     let token = localStorage.getItem('accessToken');
-    const res = await axios.get('https://api-im.chatdaddy.tech/tags',
+    const res = await axios.get(`${baseURL}/tags`,
       {
         headers: {
           "Content-type": "Application/json",
