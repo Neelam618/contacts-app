@@ -128,7 +128,7 @@ const getTags = async () => {
     });
   }
 
-  const handleExcludeToggle = (position: any) => {
+  const handleExcludeToggle = (position: number) => {
     settagsToExclude((prevCheckedState: any) => {
       let newCheckedState = [...prevCheckedState]
       let tagName = tagList[position];
@@ -151,14 +151,14 @@ const getTags = async () => {
   return (
     <>
      <Box sx={{ width: '100%' }}>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1 }} justifyContent="flex-start">
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1 }} justifyContent="space-evenly">
         <Grid item xl xs>
             <Sidebar handleIncludeToggle={handleIncludeToggle} handleExcludeToggle={handleExcludeToggle}
               tagList={tagList}
               handleInputChange={handleInputChange} inputValue={inputValue}
             />
           </Grid>
-          <Grid item xs={6} sm={6} md={8} xl={9}>
+          <Grid item xs={6} sm={6} md={7} xl={8}>
             <Contacts contacts={contacts} setSearchTerm={setSearchTerm} loading={loading} />
           </Grid>
       </Grid>

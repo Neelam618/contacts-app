@@ -38,15 +38,16 @@ function Contacts(props:any) {
     <div style={{width: '100%'}}>
       {/* <CssBaseline /> */}
         {/* <Container maxWidth="sm"> */}
-        <Box sx={{ padding: '30px' }}>
+        <Box sx={{ paddingRight: '40px' }}>
           {/* <input type="text" style={{display: 'block', marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)} placeholder="Search"/> */}
-          <div style={{display: 'flex'}}>
+          <h2>All Contacts(173)</h2>
+          <div style={{ display: 'flex', background: '#e9eff1', padding: '0 10px', borderRadius: 20 }}>
             <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
               <SearchIcon />
             </IconButton> 
             <InputBase
               sx={{ ml: 1, flex: 1 }}
-              placeholder="Search"
+              placeholder="Search contacts"
               inputProps={{ 'aria-label': 'search google maps' }}
               style={{marginLeft: '1em', width: '100%'}} onChange={(e)=> props.setSearchTerm(e.target.value)}
               />
