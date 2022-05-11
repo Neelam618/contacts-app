@@ -6,8 +6,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import useDebounce from './hooks/useDebounce'
 
-type checkedListType = {}
-
 export type contactsType = contactType[]
 
 export type contactType = {
@@ -31,15 +29,13 @@ interface InputValueType  {
 function App() {
   const [contacts, setContacts] = useState<contactsType[]>([])
   const [tagList, setTagList] = useState([])
-  // const [includedCheckedList, setIncludedCheckedList] = useState<checkedListType[]>([])
-  const [excludedCheckedList, setExcludedCheckedList] = useState<checkedListType[]>([])
-  const [checkedStateForInclude, setCheckedStateForInclude] = useState<Array<Boolean>>([])
-  const [checkedStateForExclude, setCheckedStateForExclude] = useState(new Array(tagList.length).fill(false));
+  const [tagsToInclude, settagsToInclude] = useState<Array<string>>([])
+  const [tagsToExclude, settagsToExclude] = useState<Array<string>>([])
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [loading, setLoading] = useState(false)
   const debouncedSearch = useDebounce(searchTerm, 500)
 
-  let count = 0;
+  let count = 10;
 
   const [inputValue, setInputValue] = useState<InputValueType>({
     minMsgsSent: 0,
@@ -52,15 +48,11 @@ function App() {
     getTags()
       window.addEventListener('scroll', handleScroll)
   },[])
-  
-  useEffect(() => {
-    setCheckedStateForInclude(new Array(tagList.length).fill(false))
-  }, [tagList])
 
   useEffect(() => {
     setLoading(true)
     getContacts()
-  }, [checkedStateForInclude, checkedStateForExclude, inputValue, debouncedSearch])
+  }, [tagsToInclude, tagsToExclude, inputValue, debouncedSearch])
 
   const updateToken = async () => {
     let res = await axios.post('https://api-teams.chatdaddy.tech/token',
@@ -79,7 +71,7 @@ function App() {
     let token = localStorage.getItem('accessToken');
     if (token) {      
       axios.get(
-        `https://api-im.chatdaddy.tech/contacts?q=${debouncedSearch}&count=${count}&tags=${getCheckedTagNames()}&notTags=${excludedCheckedList}&maxMessagesSent=${inputValue.maxMsgsSent}&minMessagesSent=${inputValue.minMsgsSent}&minMessagesRecv=${inputValue.minMsgsRec}&maxMessagesRecv=${inputValue.maxMsgsRec}`,
+        `https://api-im.chatdaddy.tech/contacts?q=${debouncedSearch}&count=${count}&tags=${tagsToInclude}&notTags=${tagsToExclude}&maxMessagesSent=${inputValue.maxMsgsSent}&minMessagesSent=${inputValue.minMsgsSent}&minMessagesRecv=${inputValue.minMsgsRec}&maxMessagesRecv=${inputValue.maxMsgsRec}`,
         {
           headers: {
             "Content-type": "Application/json",
@@ -123,47 +115,29 @@ const getTags = async () => {
     }
   }
 
-  const handleIncludeToggle = (position: any) => {
-    setCheckedStateForInclude((prevCheckedState: any) => {
-    const updatedCheckedState = prevCheckedState;
-    updatedCheckedState[position] = !updatedCheckedState[position];
-    // const updatedCheckedState = prevCheckedState.map((item:boolean, index: any) => index === position ? !item : item);
-    console.log(updatedCheckedState);
-      
-    return updatedCheckedState
-    });
-
-    // const newCheckedList = includedCheckedList
-    // if (updatedCheckedState[position] === true) {
-    //   newCheckedList.push(tagList[position])
-    // } else {
-    //   newCheckedList.splice(newCheckedList.indexOf(tagList[position]), 1);
-    // }
-    // console.log(newCheckedList)
-    // setIncludedCheckedList(newCheckedList)
-  }
-
-  const getCheckedTagNames = () => {
-    const result: Array<string> = []
-    checkedStateForInclude.forEach((isTagChecked, index) => {
-      if (isTagChecked) {
-        result.push(tagList[index])
+  const handleIncludeToggle = (position: number) => {
+    settagsToInclude((prevCheckedState: any) => {
+      let newCheckedState = [...prevCheckedState]
+      let tagName = tagList[position];
+      if (newCheckedState.includes(tagName)) {
+        newCheckedState.splice(newCheckedState.indexOf(tagName), 1)
+      } else {
+        newCheckedState.push(tagName)
       }
-    })
-    return result
+      return newCheckedState;
+    });
   }
 
   const handleExcludeToggle = (position: any) => {
-    setCheckedStateForExclude((prevCheckedState:any) => {
-    const updatedCheckedState = prevCheckedState.map((item:boolean, index: any) => index === position ? !item : item);
-    console.log(updatedCheckedState);
-
-    if (updatedCheckedState[position] === true) {
-      const newCheckedList = excludedCheckedList
-      newCheckedList.push(tagList[position])
-      console.log("excludedCheckedList", excludedCheckedList)
-    }
-    return updatedCheckedState
+    settagsToExclude((prevCheckedState: any) => {
+      let newCheckedState = [...prevCheckedState]
+      let tagName = tagList[position];
+      if (newCheckedState.includes(tagName)) {
+        newCheckedState.splice(newCheckedState.indexOf(tagName), 1)
+      } else {
+        newCheckedState.push(tagName)
+      }
+      return newCheckedState;
     });
   }
 
@@ -180,7 +154,7 @@ const getTags = async () => {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1 }} justifyContent="flex-start">
         <Grid item xl xs>
             <Sidebar handleIncludeToggle={handleIncludeToggle} handleExcludeToggle={handleExcludeToggle}
-              tagList={tagList} checkedStateForInclude={checkedStateForInclude} checkedStateForExclude={checkedStateForExclude}
+              tagList={tagList}
               handleInputChange={handleInputChange} inputValue={inputValue}
             />
           </Grid>

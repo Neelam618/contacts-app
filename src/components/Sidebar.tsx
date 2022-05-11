@@ -26,7 +26,7 @@ function Sidebar(props: any) {
                                         <ListItemText primary={tag} style={{paddingLeft: '10px'}} />
                                         <Checkbox {...label}
                                             onChange={() => props.handleIncludeToggle(index)}
-                                            id={tag} checked={props.checkedStateForInclude[index]}
+                                            id={tag}
                                         />
                                     </ListItem>
                                 )
@@ -44,7 +44,7 @@ function Sidebar(props: any) {
                                         <ListItemText primary={tag} style={{paddingLeft: '10px'}}/>
                                         <Checkbox {...label}
                                             onChange={() => props.handleExcludeToggle(index)}
-                                            id={tag} checked={props.checkedStateForExclude[index]}
+                                            id={tag}
                                         />
                                     </ListItem>
                                 )
