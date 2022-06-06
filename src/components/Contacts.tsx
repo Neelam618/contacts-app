@@ -43,7 +43,7 @@ function Contacts(props: ContactsProps) {
   return (
     <div style={{width: '100%'}}>
         <Box sx={{ paddingRight: '40px' }}>
-          <h2>All Contacts(173)</h2>
+          <h2>All Contacts({173})</h2>
           <div style={{ display: 'flex', background: '#e9eff1', padding: '0 10px', borderRadius: 20 }}>
             <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
               <SearchIcon />
